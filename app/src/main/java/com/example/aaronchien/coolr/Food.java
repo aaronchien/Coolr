@@ -7,9 +7,10 @@ import org.joda.time.DateTime;
  * Created by JasmineZhao on 10/31/2015.
  */
 public class Food {
-    private static String name = " ";
-    private static DateTime entryDate;
-    private static DateTime expDate;
+
+    private String name = " ";
+    private DateTime entryDate;
+    private DateTime expDate;
 
     public Food(String name, DateTime entryDate, DateTime expDate){
         this.name = name;
@@ -18,7 +19,7 @@ public class Food {
     }
 
     public Food(String name, long entryMS, long expMS){
-        name = "";
+        this.name = name;
         entryDate = new DateTime(entryMS);
         expDate = new DateTime(expMS);
     }

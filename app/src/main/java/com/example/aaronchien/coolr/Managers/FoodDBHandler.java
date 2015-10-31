@@ -36,8 +36,8 @@ public class FoodDBHandler extends SQLiteOpenHelper {
         String query = "CREATE TABLE " + TABLE_FOOD + "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_FOODNAME + " TEXT, " +
-                COLUMN_ENTRY_DATE + " INTEGER " +
-                COLUMN_EXP_DATE + " INTEGER " +
+                COLUMN_ENTRY_DATE + " INTEGER, " +
+                COLUMN_EXP_DATE + " INTEGER" +
                 ");";
         db.execSQL(query);
     }
@@ -74,7 +74,7 @@ public class FoodDBHandler extends SQLiteOpenHelper {
 
         //debug
         for(int i = 0; i < allFood.size(); i++) {
-            Log.i("getAllFood()", allFood.elementAt(i).getName());
+            Log.i("getAllFood()", allFood.elementAt(i).getName() + " " + allFood.elementAt(i).getEntryDate());
         }
 
         return allFood;

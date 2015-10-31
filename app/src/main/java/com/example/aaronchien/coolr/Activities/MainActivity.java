@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
         FoodDBHandler fh = new FoodDBHandler(this, null, null, 0);
         Food pizza = new Food("Pizza", System.currentTimeMillis(), System.currentTimeMillis());
         Log.i("MainActivity: ", pizza.getName());
-//        fh.addFood(pizza);
-//        Vector<Food> allFood = fh.getAllFood();
+        fh.addFood(pizza);
+        Vector<Food> allFood = fh.getAllFood();
 
     }
 
