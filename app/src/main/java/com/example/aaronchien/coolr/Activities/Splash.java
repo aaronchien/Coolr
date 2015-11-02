@@ -31,7 +31,8 @@ public class Splash extends Activity {
                 }
                 finally
                 {
-                    Intent openGActivity = new Intent("com.example.aaronchien.coolr.Activities.MainActivity");
+//                    Intent openGActivity = new Intent("com.example.aaronchien.coolr.Activities.MainActivity");
+                    Intent openGActivity = new Intent(Splash.this, MainActivity.class);
                     startActivity(openGActivity);
                 }
             }
