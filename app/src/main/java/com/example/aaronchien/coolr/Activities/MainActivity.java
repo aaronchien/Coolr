@@ -18,15 +18,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import java.util.ArrayList;
+import android.util.SparseBooleanArray;
 
 import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button addButton;
+    Button deleteButton;
 
     ListView lv;
     ArrayList<String> allFood;
+    ArrayAdapter<String> arrayAdapter;
+
+    FoodDBHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,20 +40,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        db = new FoodDBHandler(this, null, null, 0);
+
         lv = (ListView) findViewById(R.id.listView);
 
-        addButton = (Button) findViewById(R.id.addButton);
-        addButton.setOnClickListener(this);
+        allFood = db.getAllFoodName();
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, allFood);
 
-
-
-        FoodDBHandler fh = new FoodDBHandler(this, null, null, 0);
-        Food pizza = new Food("monkeybread", System.currentTimeMillis(), System.currentTimeMillis());
-        Log.i("MainActivity: ", pizza.getName());
-        allFood = fh.getAllFoodName();
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, allFood);
+        lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         lv.setAdapter(arrayAdapter);
+
+        addButton = (Button) findViewById(R.id.addButton);
+        deleteButton = (Button) findViewById(R.id.deleteButton);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+
+                SparseBooleanArray checkedItemPositions = lv.getCheckedItemPositions();
+
+                int itemCount = lv.getCount();
+
+                for(int i=itemCount-1; i >= 0; i--){
+                    if(checkedItemPositions.valueAt(i)){
+                        db.deleteFood(allFood.get(i));
+                        arrayAdapter.remove(allFood.get(i));
+
+                    }
+                }
+                checkedItemPositions.clear();
+                arrayAdapter.notifyDataSetChanged();
+
+            }
+        });
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Class ourClass = Class.forName("com.example.aaronchien.coolr.AddScreen");
+                    Intent ourIntent = new Intent(MainActivity.this, ourClass);
+                    startActivity(ourIntent);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
 
