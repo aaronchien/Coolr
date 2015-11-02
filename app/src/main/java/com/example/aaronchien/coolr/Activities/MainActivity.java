@@ -12,10 +12,21 @@ import com.example.aaronchien.coolr.Managers.FoodDBHandler;
 import com.example.aaronchien.coolr.R;
 
 import org.joda.time.DateTime;
+import android.content.Intent;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import java.util.ArrayList;
 
 import java.util.Vector;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    Button addButton;
+
+    ListView lv;
+    ArrayList<String> allFood;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +35,20 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        lv = (ListView) findViewById(R.id.listView);
+
+        addButton = (Button) findViewById(R.id.addButton);
+        addButton.setOnClickListener(this);
+
+
+
         FoodDBHandler fh = new FoodDBHandler(this, null, null, 0);
         Food pizza = new Food("monkeybread", System.currentTimeMillis(), System.currentTimeMillis());
         Log.i("MainActivity: ", pizza.getName());
-        fh.addFood(pizza);
-        Vector<Food> allFood = fh.getAllFood();
+        allFood = fh.getAllFoodName();
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, allFood);
+        lv.setAdapter(arrayAdapter);
 
     }
 
@@ -52,5 +72,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        try {
+            Class ourClass = Class.forName("com.example.aaronchien.coolr.AddScreen");
+            Intent ourIntent = new Intent(MainActivity.this, ourClass);
+            startActivity(ourIntent);
+        }
+        catch(ClassNotFoundException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.content.Context;
 import android.content.ContentValues;
 import android.util.Log;
+import java.util.ArrayList;
 
 import com.example.aaronchien.coolr.Food;
 
@@ -86,8 +87,8 @@ public class FoodDBHandler extends SQLiteOpenHelper {
         return null;
     }
 
-    public Vector<Food> getAllFood(){
-        Vector<Food> allFood = new Vector<Food>();
+    public ArrayList<Food> getAllFood(){
+        ArrayList<Food> allFood = new ArrayList<Food>();
         String query = "SELECT * FROM " + TABLE_FOOD;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -101,7 +102,27 @@ public class FoodDBHandler extends SQLiteOpenHelper {
 
         //debug
         for(int i = 0; i < allFood.size(); i++) {
-            Log.i("getAllFood()", allFood.elementAt(i).getName() + " " + allFood.elementAt(i).getEntryDate());
+            Log.i("getAllFood()", allFood.get(i).getName() + " " + allFood.get(i).getEntryDate());
+        }
+
+        return allFood;
+    }
+
+    public ArrayList<String> getAllFoodName(){
+        ArrayList<String> allFood = new ArrayList<String>();
+        String query = "SELECT * FROM " + TABLE_FOOD;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                allFood.add(cursor.getString(1));
+            }while(cursor.moveToNext());
+        }
+
+        //debug
+        for(int i = 0; i < allFood.size(); i++) {
+            Log.i("getAllFood()", allFood.get(i));
         }
 
         return allFood;
