@@ -9,14 +9,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.example.aaronchien.coolr.R;
-
 public class Splash extends Activity {
+	public MediaPlayer mp1;
+	
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+		mp1 = MediaPlayer.create(Splash.this, R.raw.idontlikechiefkeef);
+		mp1.start();
         Thread timer = new Thread()
         {
             public void run()
