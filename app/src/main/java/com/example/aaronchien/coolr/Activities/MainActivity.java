@@ -11,6 +11,8 @@ import com.example.aaronchien.coolr.Food;
 import com.example.aaronchien.coolr.Managers.FoodDBHandler;
 import com.example.aaronchien.coolr.R;
 
+import org.joda.time.DateTime;
+
 import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FoodDBHandler fh = new FoodDBHandler(this, null, null, 0);
-        Food pizza = new Food("Pizza", System.currentTimeMillis(), System.currentTimeMillis());
+        Food pizza = new Food("monkeybread", System.currentTimeMillis(), System.currentTimeMillis());
         Log.i("MainActivity: ", pizza.getName());
         fh.addFood(pizza);
         Vector<Food> allFood = fh.getAllFood();

@@ -66,7 +66,7 @@ public class FoodDBHandler extends SQLiteOpenHelper {
         values.put(COLUMN_EXP_DATE, food.getExpLong()/1000);
         values.put(COLUMN_EXP_YEAR, expYear);
         values.put(COLUMN_EXP_MONTH, expMonth);
-        values.put(COLUMN_EXP_DATE, expDay);
+        values.put(COLUMN_EXP_DAY, expDay);
         db.insert(TABLE_FOOD, null, values);
         db.close();
     }
