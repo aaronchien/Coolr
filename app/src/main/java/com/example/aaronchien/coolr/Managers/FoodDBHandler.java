@@ -25,6 +25,9 @@ public class FoodDBHandler extends SQLiteOpenHelper {
     public static final String COLUMN_FOODNAME = "foodname";
     public static final String COLUMN_ENTRY_DATE = "entrydate";
     public static final String COLUMN_EXP_DATE = "expdate";
+    public static final String COLUMN_EXP_MONTH = "expmonth";
+    public static final String COLUMN_EXP_DAY = "expday";
+    public static final String COLUMN_EXP_YEAR = "expyear";
 
     //We need to pass database information along to superclass
     public FoodDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -37,7 +40,10 @@ public class FoodDBHandler extends SQLiteOpenHelper {
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_FOODNAME + " TEXT, " +
                 COLUMN_ENTRY_DATE + " INTEGER, " +
-                COLUMN_EXP_DATE + " INTEGER" +
+                COLUMN_EXP_DATE + " INTEGER, " +
+                COLUMN_EXP_YEAR + " INTEGER, " +
+                COLUMN_EXP_MONTH + " INTEGER, " +
+                COLUMN_EXP_DAY + " INTEGER" +
                 ");";
         db.execSQL(query);
     }
@@ -50,13 +56,34 @@ public class FoodDBHandler extends SQLiteOpenHelper {
 
     public void addFood(Food food){
         SQLiteDatabase db = this.getWritableDatabase();
+        int expYear = food.getExpDate().getYearOfEra();
+        int expMonth = food.getExpDate().getMonthOfYear();
+        int expDay = food.getExpDate().getDayOfMonth();
         Log.i("addFood:", food.getName());
         ContentValues values = new ContentValues();
         values.put(COLUMN_FOODNAME, food.getName());
         values.put(COLUMN_ENTRY_DATE, food.getEntryLong()/1000);
         values.put(COLUMN_EXP_DATE, food.getExpLong()/1000);
+        values.put(COLUMN_EXP_YEAR, expYear);
+        values.put(COLUMN_EXP_MONTH, expMonth);
+        values.put(COLUMN_EXP_DATE, expDay);
         db.insert(TABLE_FOOD, null, values);
         db.close();
+    }
+
+    public Vector<Food> searchFood(String food){
+        Vector<Food> sameFood = new Vector<Food>();
+        String query = "Select * FROM " + TABLE_FOOD + " WHERE " + COLUMN_FOODNAME + " = \"" + food + "\"";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery(query, null);
+        if(c.moveToFirst()){
+            do{
+                sameFood.add(new Food(c.getString(1), c.getInt(2)*1000,
+                        c.getInt(3)*1000));
+            }while(c.moveToNext());
+            return sameFood;
+        }
+        return null;
     }
 
     public Vector<Food> getAllFood(){
