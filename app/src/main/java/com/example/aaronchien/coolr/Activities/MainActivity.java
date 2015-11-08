@@ -112,4 +112,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onClick(View v) {
+
+        finish();
+
+        try {
+            Class ourClass = Class.forName("com.example.aaronchien.coolr.AddScreen");
+            Intent ourIntent = new Intent(MainActivity.this, ourClass);
+            startActivity(ourIntent);
+        }
+        catch(ClassNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }
