@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if(checkedItemPositions.valueAt(i)){
                         db.deleteFood(allFood.get(i));
                         arrayAdapter.remove(allFood.get(i));
-
                     }
                 }
                 checkedItemPositions.clear();
@@ -76,9 +75,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
+
                 try {
                     Class ourClass = Class.forName("com.example.aaronchien.coolr.AddScreen");
                     Intent ourIntent = new Intent(MainActivity.this, ourClass);
+
                     startActivity(ourIntent);
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
@@ -110,16 +112,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onClick(View v) {
-        try {
-            Class ourClass = Class.forName("com.example.aaronchien.coolr.AddScreen");
-            Intent ourIntent = new Intent(MainActivity.this, ourClass);
-            startActivity(ourIntent);
-        }
-        catch(ClassNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-    }
 }
