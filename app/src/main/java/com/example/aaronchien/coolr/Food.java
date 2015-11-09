@@ -1,5 +1,7 @@
 package com.example.aaronchien.coolr;
 
+import android.util.Log;
+
 import java.util.Date;
 import org.joda.time.DateTime;
 

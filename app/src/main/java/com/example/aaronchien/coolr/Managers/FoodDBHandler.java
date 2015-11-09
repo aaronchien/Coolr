@@ -10,10 +10,18 @@ import android.database.Cursor;
 import android.content.Context;
 import android.content.ContentValues;
 import android.util.Log;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.example.aaronchien.coolr.Food;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -110,13 +118,13 @@ public class FoodDBHandler extends SQLiteOpenHelper {
 
     public ArrayList<String> getAllFoodName(){
         ArrayList<String> allFood = new ArrayList<String>();
-        String query = "SELECT * FROM " + TABLE_FOOD;
+        String query = "SELECT " + COLUMN_FOODNAME + " FROM " + TABLE_FOOD;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
         if(cursor.moveToFirst()){
             do{
-                allFood.add(cursor.getString(1));
+                allFood.add(cursor.getString(0));
             }while(cursor.moveToNext());
         }
 
@@ -126,6 +134,21 @@ public class FoodDBHandler extends SQLiteOpenHelper {
         }
 
         return allFood;
+    }
+
+    public ArrayList<String> getAllExpDate() {
+        ArrayList<String> allExpDate = new ArrayList<String>();
+        String query = "SELECT * FROM " + TABLE_FOOD;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                allExpDate.add(cursor.getInt(5) + "/" + cursor.getInt(6) + "/" + cursor.getInt(4));
+            }while(cursor.moveToNext());
+        }
+
+        return allExpDate;
     }
 
     //Delete a food from the database

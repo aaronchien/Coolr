@@ -45,8 +45,8 @@ public class AddScreen extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        db.addFood(new Food(tv.getText().toString(), new DateTime(entry.getYear(), entry.getMonth(), entry.getDayOfMonth(), 0, 0),
-                new DateTime(expiration.getYear(), entry.getMonth(), entry.getDayOfMonth(), 0, 0)));
+        db.addFood(new Food(tv.getText().toString(), new DateTime(entry.getYear(), entry.getMonth(), entry.getDayOfMonth(), 0,0),
+                new DateTime(expiration.getYear(), expiration.getMonth() + 1, expiration.getDayOfMonth(), 0,0)));
 
         finish();
 

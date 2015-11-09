@@ -19,7 +19,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import java.util.ArrayList;
 import android.util.SparseBooleanArray;
+import android.widget.SimpleAdapter;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -29,7 +32,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     ListView lv;
     ArrayList<String> allFood;
-    ArrayAdapter<String> arrayAdapter;
+    ArrayList<String> allExpDate;
+    ArrayList<HashMap<String,String>> foodArray;
+    SimpleAdapter adapter;
 
     FoodDBHandler db;
 
@@ -45,10 +50,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lv = (ListView) findViewById(R.id.listView);
 
         allFood = db.getAllFoodName();
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, allFood);
+        allExpDate = db.getAllExpDate();
+        foodArray = new ArrayList<>();
+        for(int i = 0; i < allFood.size(); i++){
+            HashMap<String, String> datum = new HashMap<>();
+            datum.put( "food name", allFood.get(i) );
+            datum.put( "exp date", allExpDate.get(i));
+            foodArray.add(datum);
+        }
+
+        adapter = new SimpleAdapter(this, foodArray, android.R.layout.simple_list_item_2,
+                new String[] {"food name", "exp date"}, new int[] {android.R.id.text1, android.R.id.text2});
+
 
         lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        lv.setAdapter(arrayAdapter);
+        lv.setAdapter(adapter);
+
 
         addButton = (Button) findViewById(R.id.addButton);
         deleteButton = (Button) findViewById(R.id.deleteButton);
@@ -64,11 +81,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 for(int i=itemCount-1; i >= 0; i--){
                     if(checkedItemPositions.valueAt(i)){
                         db.deleteFood(allFood.get(i));
-                        arrayAdapter.remove(allFood.get(i));
+                        foodArray.remove(i);
                     }
                 }
                 checkedItemPositions.clear();
-                arrayAdapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
 
             }
         });
