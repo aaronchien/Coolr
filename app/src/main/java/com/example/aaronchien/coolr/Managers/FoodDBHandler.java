@@ -151,6 +151,21 @@ public class FoodDBHandler extends SQLiteOpenHelper {
         return allExpDate;
     }
 
+    public ArrayList<String> getFoodByExpDate(int year, int month, int day) {
+        ArrayList<String> foodByExpDate = new ArrayList<String>();
+        String query = "SELECT * FROM " + TABLE_FOOD + " WHERE " + COLUMN_EXP_YEAR + "=" + year + " AND " + COLUMN_EXP_MONTH + "=" + month + " AND " + COLUMN_EXP_DAY + "=" + day;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                foodByExpDate.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+
+        return foodByExpDate;
+    }
+
     //Delete a food from the database
     public void deleteFood(String foodName){
         SQLiteDatabase db = getWritableDatabase();
