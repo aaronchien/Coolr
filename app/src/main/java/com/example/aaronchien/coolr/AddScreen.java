@@ -144,8 +144,8 @@ public class AddScreen extends AppCompatActivity implements View.OnClickListener
     public void addDropDown(String[] input)
 	{
 		AutoCompleteTextView curr = (AutoCompleteTextView) findViewById(R.id.fooditem);
-		AddScreen<String> adapter1;
-		adapter1 = new AddScreen<String>(AddScreen.this,
+		ArrayAdapter<String> adapter1;
+		adapter1 = new ArrayAdapter<String>(AddScreen.this,
 		            android.R.layout.simple_dropdown_item_1line, input);
 		curr.setAdapter(adapter1);
 		curr.setOnItemClickListener(new OnItemClickListener() {
