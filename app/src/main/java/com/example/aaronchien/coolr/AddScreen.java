@@ -50,7 +50,6 @@ public class AddScreen extends AppCompatActivity implements View.OnClickListener
     Button addButton;
     FoodDBHandler db;
     AutoCompleteTextView addfood; 
-	TextView showcall; 
  	public String result = ""; 
 
     @Override
@@ -68,7 +67,6 @@ public class AddScreen extends AppCompatActivity implements View.OnClickListener
         addButton.setOnClickListener(this);
         
         addfood = (AutoCompleteTextView)findViewById(R.id.fooditem);
-		showcall = (TextView)findViewById(R.id.showcall);
 		addfood.addTextChangedListener(new TextWatcher() {
 			
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -160,7 +158,6 @@ public class AddScreen extends AppCompatActivity implements View.OnClickListener
 
 	public void processResult() {
 	    String newvalue = result;
-	    showcall.setText(newvalue);
 	   // try {
 			//Class ourClass = Class.forName("com.example.coolr.MainActivity");
 			//Intent ourIntent = new Intent(Addition.this, ourClass);
