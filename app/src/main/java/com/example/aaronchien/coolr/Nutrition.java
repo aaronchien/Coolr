@@ -1,4 +1,4 @@
-package com.example.Aaron.coolr;
+package com.example.aaronchien.coolr;
 
 import java.io.BufferedReader;
 import java.io.IOException;
