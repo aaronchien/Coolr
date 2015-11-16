@@ -24,7 +24,8 @@
         <activity
             android:name=".AddScreen"
             android:label="@string/title_activity_add_screen"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar" 
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -46,7 +46,6 @@ public class AddScreen extends AppCompatActivity implements View.OnClickListener
 
     DatePicker entry;
     DatePicker expiration;
-    TextView tv;
     Button addButton;
     FoodDBHandler db;
     AutoCompleteTextView addfood; 
@@ -60,7 +59,6 @@ public class AddScreen extends AppCompatActivity implements View.OnClickListener
         setSupportActionBar(toolbar);
 
         db = new FoodDBHandler(this, null, null, 0);
-        tv = (TextView) findViewById(R.id.foodName);
         entry = (DatePicker) findViewById(R.id.dateOfPurchase);
         expiration = (DatePicker) findViewById(R.id.expirationDate);
         addButton = (Button) findViewById(R.id.button2);
@@ -132,7 +130,7 @@ public class AddScreen extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        db.addFood(new Food(tv.getText().toString(), new DateTime(entry.getYear(), entry.getMonth(), entry.getDayOfMonth(), 0,0),
+        db.addFood(new Food(result, new DateTime(entry.getYear(), entry.getMonth(), entry.getDayOfMonth(), 0,0),
                 new DateTime(expiration.getYear(), expiration.getMonth() + 1, expiration.getDayOfMonth(), 0,0)));
 
         finish();

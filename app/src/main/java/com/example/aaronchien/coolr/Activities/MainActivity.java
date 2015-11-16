@@ -79,17 +79,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 SparseBooleanArray checkedItemPositions = lv.getCheckedItemPositions();
 
-                int itemCount = lv.getCount();
+                if(checkedItemPositions.size()>0) {
 
-                for(int i=itemCount-1; i >= 0; i--){
-                    if(checkedItemPositions.valueAt(i)){
-                        db.deleteFood(allFood.get(i));
-                        foodArray.remove(i);
+                    int itemCount = lv.getCount();
+
+                    for (int i = itemCount - 1; i >= 0; i--) {
+                        if (checkedItemPositions.valueAt(i)) {
+                            db.deleteFood(allFood.get(i));
+                            foodArray.remove(i);
+                        }
                     }
+                    checkedItemPositions.clear();
+                    adapter.notifyDataSetChanged();
                 }
-                checkedItemPositions.clear();
-                adapter.notifyDataSetChanged();
-
             }
         });
         addButton.setOnClickListener(new View.OnClickListener() {
