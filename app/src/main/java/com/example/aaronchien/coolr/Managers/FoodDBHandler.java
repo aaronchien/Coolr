@@ -164,7 +164,7 @@ public class FoodDBHandler extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()){
             do{
-                foodByExpDate.add(cursor.getString(0));
+                foodByExpDate.add(cursor.getString(1));
             } while (cursor.moveToNext());
         }
 
