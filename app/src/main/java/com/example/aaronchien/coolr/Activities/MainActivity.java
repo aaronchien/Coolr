@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Button addButton;
     Button deleteButton;
+    Button calendarButton;
 
     ListView lv;
     ArrayList<String> allFood;
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         addButton = (Button) findViewById(R.id.addButton);
         deleteButton = (Button) findViewById(R.id.deleteButton);
+        calendarButton = (Button) findViewById(R.id.calendarButton);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -110,6 +112,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        calendarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Class ourClass = Class.forName("com.example.aaronchien.coolr.Activities.CalendarScreen");
+                    Intent ourIntent = new Intent(MainActivity.this, ourClass);
+
+                    startActivity(ourIntent);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+
     }
 
     @Override
@@ -137,16 +155,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-        finish();
-
-        try {
-            Class ourClass = Class.forName("com.example.aaronchien.coolr.AddScreen");
-            Intent ourIntent = new Intent(MainActivity.this, ourClass);
-            startActivity(ourIntent);
-        }
-        catch(ClassNotFoundException e)
-        {
-            e.printStackTrace();
-        }
     }
 }
