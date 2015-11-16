@@ -27,6 +27,9 @@ import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    final static int EXP_DATE_SORT = 0;
+    final static int ENTRY_DATE_SORT = 1;
+
     Button addButton;
     Button deleteButton;
 
@@ -49,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         lv = (ListView) findViewById(R.id.listView);
 
-        allFood = db.getAllFoodName();
-        allExpDate = db.getAllExpDate();
+        allFood = db.getAllFoodName(EXP_DATE_SORT);
+        allExpDate = db.getAllExpDate(EXP_DATE_SORT);
         foodArray = new ArrayList<>();
         for(int i = 0; i < allFood.size(); i++){
             HashMap<String, String> datum = new HashMap<>();

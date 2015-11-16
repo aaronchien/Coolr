@@ -116,32 +116,37 @@ public class FoodDBHandler extends SQLiteOpenHelper {
         return allFood;
     }
 
-    public ArrayList<String> getAllFoodName(){
+    public ArrayList<String> getAllFoodName(int sortOption){
         ArrayList<String> allFood = new ArrayList<String>();
-        String query = "SELECT " + COLUMN_FOODNAME + " FROM " + TABLE_FOOD;
+        String query = "";
+
+        if(sortOption == 0) //sort by exp date
+            query = "SELECT " + COLUMN_FOODNAME + " FROM " + TABLE_FOOD + " ORDER BY " + COLUMN_EXP_DATE;
+        else //sort by entry date
+            query = "SELECT " + COLUMN_FOODNAME + " FROM " + TABLE_FOOD;
+
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
-
         if(cursor.moveToFirst()){
             do{
                 allFood.add(cursor.getString(0));
             }while(cursor.moveToNext());
         }
 
-        //debug
-        for(int i = 0; i < allFood.size(); i++) {
-            Log.i("getAllFood()", allFood.get(i));
-        }
-
         return allFood;
     }
 
-    public ArrayList<String> getAllExpDate() {
+    public ArrayList<String> getAllExpDate(int sortOption) {
         ArrayList<String> allExpDate = new ArrayList<String>();
-        String query = "SELECT * FROM " + TABLE_FOOD;
+        String query = "";
+
+        if(sortOption == 0) //sort by exp date
+            query = "SELECT " + COLUMN_FOODNAME + " FROM " + TABLE_FOOD + " ORDER BY " + COLUMN_EXP_DATE;
+        else //sort by entry date
+            query = "SELECT " + COLUMN_FOODNAME + " FROM " + TABLE_FOOD;
+
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
-
         if(cursor.moveToFirst()){
             do{
                 allExpDate.add(cursor.getInt(5) + "/" + cursor.getInt(6) + "/" + cursor.getInt(4));
