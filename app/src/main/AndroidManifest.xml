@@ -24,8 +24,8 @@
         <activity
             android:name=".AddScreen"
             android:label="@string/title_activity_add_screen"
-            android:theme="@style/AppTheme.NoActionBar" 
-            android:windowSoftInputMode="adjustNothing">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustNothing" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,6 +45,11 @@
         <activity
             android:name=".Activities.CalendarScreen"
             android:label="@string/title_activity_calendar_screen"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".Activities.FoodNutritionFact"
+            android:label="@string/title_activity_food_nutrition_fact"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>

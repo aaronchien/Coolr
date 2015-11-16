@@ -14,6 +14,7 @@ import com.example.aaronchien.coolr.R;
 import org.joda.time.DateTime;
 import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -22,6 +23,7 @@ import android.util.SparseBooleanArray;
 import android.widget.SimpleAdapter;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
@@ -72,30 +74,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         addButton = (Button) findViewById(R.id.addButton);
-        deleteButton = (Button) findViewById(R.id.deleteButton);
         calendarButton = (Button) findViewById(R.id.calendarButton);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
 
-                SparseBooleanArray checkedItemPositions = lv.getCheckedItemPositions();
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
 
-                if(checkedItemPositions.size()>0) {
+                HashMap<String, String> map = (HashMap<String,String>) parent.getItemAtPosition(position);
 
-                    int itemCount = lv.getCount();
+                Intent myIntent = new Intent(MainActivity.this, FoodNutritionFact.class);
+                myIntent.putExtra("name", map.get("food name"));
+                startActivity(myIntent);
 
-                    for (int i = itemCount - 1; i >= 0; i--) {
-                        if (checkedItemPositions.valueAt(i)) {
-                            db.deleteFood(allFood.get(i));
-                            foodArray.remove(i);
-                        }
-                    }
-                    checkedItemPositions.clear();
-                    adapter.notifyDataSetChanged();
-                }
             }
         });
+
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
