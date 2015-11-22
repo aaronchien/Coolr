@@ -6,4 +6,8 @@
     <string name="title_activity_calendar_view">CalendarView</string>
     <string name="title_activity_calendar_screen">CalendarScreen</string>
     <string name="title_activity_food_nutrition_fact">FoodNutritionFact</string>
+    <string-array name="sort_options">
+        <item>Sort by expiration</item>
+        <item>Sort by entry</item>
+    </string-array>
 </resources>

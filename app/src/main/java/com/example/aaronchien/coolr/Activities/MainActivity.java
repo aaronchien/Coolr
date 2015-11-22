@@ -21,13 +21,14 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import android.util.SparseBooleanArray;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     final static int EXP_DATE_SORT = 0;
     final static int ENTRY_DATE_SORT = 1;
@@ -51,26 +52,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        db = new FoodDBHandler(this, null, null, 0);
+        Spinner spinner = (Spinner) findViewById(R.id.sortSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> sortAdapter = ArrayAdapter.createFromResource(this,
+                R.array.sort_options, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        sortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(sortAdapter);
 
-        lv = (ListView) findViewById(R.id.listView);
+        displayFood(EXP_DATE_SORT);
 
-        allFood = db.getAllFoodName(EXP_DATE_SORT);
-        allExpDate = db.getAllExpDate(EXP_DATE_SORT);
-        foodArray = new ArrayList<>();
-        for(int i = 0; i < allFood.size(); i++){
-            HashMap<String, String> datum = new HashMap<>();
-            datum.put( "food name", allFood.get(i) );
-            datum.put( "exp date", allExpDate.get(i));
-            foodArray.add(datum);
-        }
+//        db = new FoodDBHandler(this, null, null, 0);
+//
+//        lv = (ListView) findViewById(R.id.listView);
+//
+//        allFood = db.getAllFoodName(EXP_DATE_SORT);
+//        allExpDate = db.getAllExpDate(EXP_DATE_SORT);
+//        foodArray = new ArrayList<>();
+//        for(int i = 0; i < allFood.size(); i++){
+//            HashMap<String, String> datum = new HashMap<>();
+//            datum.put( "food name", allFood.get(i) );
+//            datum.put( "exp date", allExpDate.get(i));
+//            foodArray.add(datum);
+//        }
 
-        adapter = new SimpleAdapter(this, foodArray, android.R.layout.simple_list_item_2,
-                new String[] {"food name", "exp date"}, new int[] {android.R.id.text1, android.R.id.text2});
+//       adapter = new SimpleAdapter(this, foodArray, android.R.layout.simple_list_item_2,
+//                new String[] {"food name", "exp date"}, new int[] {android.R.id.text1, android.R.id.text2});
 
 
-        lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        lv.setAdapter(adapter);
+//        lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+//        lv.setAdapter(adapter);
 
 
         addButton = (Button) findViewById(R.id.addButton);
@@ -150,4 +162,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(position).toString();
+        if(item.equals("Sort by entry")) {
+            displayFood(ENTRY_DATE_SORT);
+//            adapter.notifyDataSetChanged();
+        }
+        else{
+            displayFood(EXP_DATE_SORT);
+//            adapter.notifyDataSetChanged();
+        }
+    }
+
+    public void onNothingSelected(AdapterView<?> arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    public void displayFood(int sortOption) {
+        db = new FoodDBHandler(this, null, null, 0);
+        lv = (ListView) findViewById(R.id.listView);
+
+        if (sortOption == EXP_DATE_SORT) {
+            allFood = db.getAllFoodName(EXP_DATE_SORT);
+            allExpDate = db.getAllExpDate(EXP_DATE_SORT);
+        }
+        else {
+            allFood = db.getAllFoodName(ENTRY_DATE_SORT);
+            allExpDate = db.getAllExpDate(ENTRY_DATE_SORT);
+        }
+        foodArray = new ArrayList<>();
+        for(int i = 0; i < allFood.size(); i++){
+            HashMap<String, String> datum = new HashMap<>();
+            datum.put( "food name", allFood.get(i) );
+            datum.put( "exp date", allExpDate.get(i));
+            foodArray.add(datum);
+        }
+
+
+        adapter = new SimpleAdapter(this, foodArray, android.R.layout.simple_list_item_2,
+                new String[] {"food name", "exp date"}, new int[] {android.R.id.text1, android.R.id.text2});
+        lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        lv.setAdapter(adapter);
+    }
+
 }
