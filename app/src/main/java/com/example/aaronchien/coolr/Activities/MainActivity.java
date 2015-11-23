@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import java.util.ArrayList;
 import android.util.SparseBooleanArray;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button deleteButton;
     Button calendarButton;
 
+    RelativeLayout rl;
     ListView lv;
     ArrayList<String> allFood;
     ArrayList<String> allExpDate;
@@ -61,7 +63,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        rl = (RelativeLayout) findViewById(R.id.mainLayout);
+
         Spinner spinner = (Spinner) findViewById(R.id.sortSpinner);
+        spinner.setOnItemSelectedListener(this);
+
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> sortAdapter = ArrayAdapter.createFromResource(this,
                 R.array.sort_options, android.R.layout.simple_spinner_item);
@@ -72,26 +78,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         displayFood(EXP_DATE_SORT);
 
-//        db = new FoodDBHandler(this, null, null, 0);
-//
-//        lv = (ListView) findViewById(R.id.listView);
-//
-//        allFood = db.getAllFoodName(EXP_DATE_SORT);
-//        allExpDate = db.getAllExpDate(EXP_DATE_SORT);
-//        foodArray = new ArrayList<>();
-//        for(int i = 0; i < allFood.size(); i++){
-//            HashMap<String, String> datum = new HashMap<>();
-//            datum.put( "food name", allFood.get(i) );
-//            datum.put( "exp date", allExpDate.get(i));
-//            foodArray.add(datum);
-//        }
-
-//       adapter = new SimpleAdapter(this, foodArray, android.R.layout.simple_list_item_2,
-//                new String[] {"food name", "exp date"}, new int[] {android.R.id.text1, android.R.id.text2});
-
-
-//        lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-//        lv.setAdapter(adapter);
         addButton = (Button) findViewById(R.id.addButton);
         calendarButton = (Button) findViewById(R.id.calendarButton);
 
@@ -204,14 +190,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
         String item = parent.getItemAtPosition(position).toString();
-        if(item.equals("Sort by entry")) {
+        if(item.equals("Sort by entry"))
             displayFood(ENTRY_DATE_SORT);
-//            adapter.notifyDataSetChanged();
-        }
-        else{
+        else if (item.equals("Sort by expiration"))
             displayFood(EXP_DATE_SORT);
-//            adapter.notifyDataSetChanged();
-        }
     }
 
     public void onNothingSelected(AdapterView<?> arg0) {
@@ -238,13 +220,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             foodArray.add(datum);
         }
 
-
         adapter = new SimpleAdapter(this, foodArray, android.R.layout.simple_list_item_2,
                 new String[] {"food name", "exp date"}, new int[] {android.R.id.text1, android.R.id.text2});
         lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         lv.setAdapter(adapter);
     }
-
-
-
 }

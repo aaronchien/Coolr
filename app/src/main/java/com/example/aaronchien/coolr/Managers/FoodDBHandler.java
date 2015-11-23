@@ -123,7 +123,7 @@ public class FoodDBHandler extends SQLiteOpenHelper {
         if(sortOption == 0) //sort by exp date
             query = "SELECT * FROM " + TABLE_FOOD + " ORDER BY " + COLUMN_EXP_DATE;
         else //sort by entry date
-            query = "SELECT * FROM " + COLUMN_FOODNAME + " FROM " + TABLE_FOOD;
+            query = "SELECT * FROM " + TABLE_FOOD;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -143,13 +143,13 @@ public class FoodDBHandler extends SQLiteOpenHelper {
         if(sortOption == 0) //sort by exp date
             query = "SELECT * FROM " + TABLE_FOOD + " ORDER BY " + COLUMN_EXP_DATE;
         else //sort by entry date
-            query = "SELECT * FROM " + COLUMN_FOODNAME + " FROM " + TABLE_FOOD;
+            query = "SELECT * FROM " + TABLE_FOOD;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         if(cursor.moveToFirst()){
             do{
-                allExpDate.add(cursor.getInt(5) + "/" + cursor.getInt(6) + "/" + cursor.getInt(4));
+                allExpDate.add("Exp date: " + cursor.getInt(5) + "/" + cursor.getInt(6) + "/" + cursor.getInt(4));
             }while(cursor.moveToNext());
         }
 
