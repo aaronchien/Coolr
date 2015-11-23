@@ -1,5 +1,11 @@
 package com.example.aaronchien.coolr.Activities;
 
+import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +29,7 @@ import android.util.SparseBooleanArray;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -44,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SimpleAdapter adapter;
 
     FoodDBHandler db;
+
+    public static boolean firstTime = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +92,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 //        lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 //        lv.setAdapter(adapter);
-
-
         addButton = (Button) findViewById(R.id.addButton);
         calendarButton = (Button) findViewById(R.id.calendarButton);
 
@@ -132,7 +139,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        if (firstTime) {
+            Calendar c = Calendar.getInstance();
 
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            if (db.getFoodByExpDate(year, month + 1, day).isEmpty()) {
+                builder1.setMessage("Nothing is expiring today! Good job!");
+            } else {
+                builder1.setMessage("Food expiring today: " + db.getFoodByExpDate(year, month + 1, day));
+            }
+            builder1.setCancelable(true);
+            builder1.setPositiveButton("Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            builder1.setNegativeButton("No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+            firstTime = false;
+        }
 
     }
 
@@ -207,5 +244,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         lv.setAdapter(adapter);
     }
+
+
 
 }

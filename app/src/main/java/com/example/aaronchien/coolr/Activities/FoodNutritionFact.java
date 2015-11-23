@@ -45,8 +45,6 @@ public class FoodNutritionFact extends AppCompatActivity {
         Intent intent = getIntent();
         name = intent.getExtras().getString("name");
 
-        Log.i("NAME OF FOOD", name);
-
         back = (Button) findViewById(R.id.backButtonFoodNutritionFact);
         delete = (Button) findViewById(R.id.deleteButton);
         back.setOnClickListener(new View.OnClickListener() {

@@ -46,8 +46,13 @@ public class CalendarScreen extends AppCompatActivity implements View.OnClickLis
             public void onSelectedDayChange(CalendarView view, int year, int month,
                                             int dayOfMonth) {
 
-                Toast.makeText(getApplicationContext(), "" + db.getFoodByExpDate(year, month+1, dayOfMonth),
-                        Toast.LENGTH_LONG).show();// TODO Auto-generated method stub
+                if (db.getFoodByExpDate(year, month+1, dayOfMonth).isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Nothing's expiring today",
+                            Toast.LENGTH_LONG).show();// TODO Auto-generated method stub
+                } else {
+                    Toast.makeText(getApplicationContext(), "" + db.getFoodByExpDate(year, month + 1, dayOfMonth),
+                            Toast.LENGTH_LONG).show();// TODO Auto-generated method stub
+                }
 
             }
         });
