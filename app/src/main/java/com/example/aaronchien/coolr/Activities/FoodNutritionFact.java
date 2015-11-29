@@ -106,8 +106,8 @@ public class FoodNutritionFact extends AppCompatActivity {
             String sodiumcurr = innerData.getString("nf_sodium");
             calories.setText(caloriesdata);
             calfromfat.setText(caloriesFromFat);
-            sodium.setText(sodiumcurr);
-            cholcurrent.setText(chlor);
+            sodium.setText(sodiumcurr +" mg");
+            cholcurrent.setText(chlor +" mg");
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block
