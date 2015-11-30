@@ -131,19 +131,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
-
+            int ms = c.get(Calendar.MILLISECOND);
 
             AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
             if (db.getFoodByExpDate(year, month + 1, day).isEmpty()) {
-                builder1.setMessage("Nothing is expiring today! Good job!");
+                builder1.setMessage("Nothing is expiring today! Do you want to delete all expired foods?");
             } else {
-                builder1.setMessage("Food expiring today: " + db.getFoodByExpDate(year, month + 1, day));
+                builder1.setMessage("Food expiring today: " + db.getFoodByExpDate(year, month + 1, day)
+                                    + ". Do you want to delete all expired foods?");
             }
             builder1.setCancelable(true);
             builder1.setPositiveButton("Yes",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
+                            Calendar c = Calendar.getInstance();
+
+                            int year = c.get(Calendar.YEAR);
+                            int month = c.get(Calendar.MONTH) + 1;
+                            int day = c.get(Calendar.DAY_OF_MONTH);
+
+                            db.deleteAllExpFood(year, month, day);
                             dialog.cancel();
+                            Intent ourIntent = new Intent(MainActivity.this, MainActivity.class);
+                            startActivity(ourIntent);
                         }
                     });
             builder1.setNegativeButton("No",

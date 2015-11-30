@@ -68,7 +68,6 @@ public class FoodDBHandler extends SQLiteOpenHelper {
         int expYear = food.getExpDate().getYearOfEra();
         int expMonth = food.getExpDate().getMonthOfYear();
         int expDay = food.getExpDate().getDayOfMonth();
-        Log.i("addFood:", food.getName());
         ContentValues values = new ContentValues();
         values.put(COLUMN_FOODNAME, food.getName());
         values.put(COLUMN_ENTRY_DATE, food.getEntryLong()/1000);
@@ -175,6 +174,16 @@ public class FoodDBHandler extends SQLiteOpenHelper {
     public void deleteFood(String foodName){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_FOOD + " WHERE " + COLUMN_FOODNAME + "=\"" + foodName + "\";");
+    }
+
+    //Delete food before expiration date
+    public void deleteAllExpFood(int year, int month, int day){
+        SQLiteDatabase db2 = getWritableDatabase();
+        db2.execSQL("DELETE FROM " + TABLE_FOOD + " WHERE " + COLUMN_EXP_YEAR + "<" + year);
+        db2.execSQL("DELETE FROM " + TABLE_FOOD + " WHERE " + COLUMN_EXP_MONTH + "<" + month);
+        db2.execSQL("DELETE FROM " + TABLE_FOOD + " WHERE " + COLUMN_EXP_DAY + "<=" + day + " AND " + COLUMN_EXP_MONTH + "="
+                + month + " AND " + COLUMN_EXP_YEAR + "=" + year);
+
     }
 
     public String databaseToString(){
