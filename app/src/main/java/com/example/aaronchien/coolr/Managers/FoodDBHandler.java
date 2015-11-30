@@ -181,7 +181,7 @@ public class FoodDBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db2 = getWritableDatabase();
         db2.execSQL("DELETE FROM " + TABLE_FOOD + " WHERE " + COLUMN_EXP_YEAR + "<" + year);
         db2.execSQL("DELETE FROM " + TABLE_FOOD + " WHERE " + COLUMN_EXP_MONTH + "<" + month);
-        db2.execSQL("DELETE FROM " + TABLE_FOOD + " WHERE " + COLUMN_EXP_DAY + "<=" + day + " AND " + COLUMN_EXP_MONTH + "="
+        db2.execSQL("DELETE FROM " + TABLE_FOOD + " WHERE " + COLUMN_EXP_DAY + "<" + day + " AND " + COLUMN_EXP_MONTH + "="
                 + month + " AND " + COLUMN_EXP_YEAR + "=" + year);
 
     }
