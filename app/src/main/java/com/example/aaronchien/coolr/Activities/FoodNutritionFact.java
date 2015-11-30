@@ -26,7 +26,6 @@ import java.util.concurrent.ExecutionException;
 
 public class FoodNutritionFact extends AppCompatActivity {
 
-    TextView foodName;
     TextView calories;
     TextView calfromfat;
     TextView sodium;
@@ -66,14 +65,12 @@ public class FoodNutritionFact extends AppCompatActivity {
         });
 
 
-        foodName = (TextView) findViewById(R.id.foodName);
         calories = (TextView) findViewById(R.id.cals);
         calfromfat = (TextView) findViewById(R.id.fat);
         sodium = (TextView) findViewById(R.id.sodium);
         cholcurrent = (TextView) findViewById(R.id.chol);
 
 
-        foodName.setText(name);
         String nospace = name.toString().replaceAll("\\s", "%20");
 
         URL url = null;
@@ -104,6 +101,7 @@ public class FoodNutritionFact extends AppCompatActivity {
             String caloriesFromFat = innerData.getString("nf_calories_from_fat");
             String chlor = innerData.getString("nf_cholesterol");
             String sodiumcurr = innerData.getString("nf_sodium");
+            System.out.println(caloriesdata + "IDENTIFIER" + caloriesFromFat + " " + chlor + " " + sodiumcurr);
             calories.setText(caloriesdata);
             calfromfat.setText(caloriesFromFat);
             sodium.setText(sodiumcurr +" mg");
