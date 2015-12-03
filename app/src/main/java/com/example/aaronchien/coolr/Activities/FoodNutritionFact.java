@@ -72,7 +72,7 @@ public class FoodNutritionFact extends AppCompatActivity {
 
         URL url = null;
         try {
-            url = new URL("https://api.nutritionix.com/v1_1/search/" + nospace + "?results=0%3A20&cal_min=0&cal_max=50000&fields=*&appId=dcfa1c97&appKey=4c4f3685e4270a5e4c1cdef54953ede7");
+            url = new URL("https://api.nutritionix.com/v1_1/search/" + nospace + "?results=0%3A20&cal_min=0&cal_max=50000&fields=*&appId=ff29d80a&appKey=fd02ff5b58bd16f5ff55a1215d436cf6");
         } catch (MalformedURLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -101,9 +101,20 @@ public class FoodNutritionFact extends AppCompatActivity {
             System.out.println(caloriesdata + "IDENTIFIER" + caloriesFromFat + " " + chlor + " " + sodiumcurr);
             calories.setText(caloriesdata);
             calfromfat.setText(caloriesFromFat);
-            sodium.setText(sodiumcurr +" mg");
-            cholcurrent.setText(chlor +" mg");
-
+            if(sodiumcurr.equals("null"))
+            {
+                sodium.setText("null");
+            }
+            else {
+                sodium.setText(sodiumcurr + " mg");
+            }
+                if(chlor.equals("null"))
+            {
+                cholcurrent.setText("null");
+            }
+            else {
+                cholcurrent.setText(chlor + " mg");
+            }
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
