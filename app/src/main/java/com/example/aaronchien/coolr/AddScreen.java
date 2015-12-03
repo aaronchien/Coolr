@@ -52,7 +52,7 @@ public class AddScreen extends AppCompatActivity implements View.OnClickListener
         addButton = (Button) findViewById(R.id.button2);
 		backButton = (Button) findViewById(R.id.backaddscreen);
 
-		backButton.setOnClickListener(new OnClickListener() {
+		backButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v)
 			{
 				try {
