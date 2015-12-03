@@ -1,3 +1,5 @@
+// Scenario: Given the home screen page, when the user clicks on the "ADD NEW ITEM" button, then they should be directed to the add screen page.
+
 package com.example.aaronchien.coolr.tests;
 
 import android.app.Activity;
@@ -21,25 +23,24 @@ public class AddScreenTest extends ActivityInstrumentationTestCase2 {
         super(MainActivity.class);
     }
 
+    // Given the home screen page
     public void setUp() throws Exception {
         activity = getActivity();
         addButton = (Button) activity.findViewById(R.id.addButton);;
     }
 
     public void testOpenNextActivity() {
-        // register next activity that need to be monitored.
         Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(AddScreen.class.getName(), null, false);
 
-        // open current activity.
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                // click button and open next activity.
+                // when the user clicks on the "ADD NEW ITEM" button
                 addButton.performClick();
             }
         });
 
-        // next activity is opened and captured.
+        // then they should be directed to the add screen page
         Activity AddScreen = getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
         assertNotNull(AddScreen);
         AddScreen.finish();
