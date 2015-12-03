@@ -1,4 +1,4 @@
-// Scenario: Given the calendar page, when the user clicks on the "BACK" button, then they should be directed back to the home screen page.
+// Scenario: Given the add screen page, when the user clicks on the "BACK" button, then they should be directed back to the home screen page.
 
 package com.example.aaronchien.coolr.tests;
 
@@ -19,7 +19,7 @@ public class AddScreenBackTest extends ActivityInstrumentationTestCase2 {
         super(AddScreen.class);
     }
 
-    // Given the calendar page
+    // Given the add screen page
     public void setUp() throws Exception {
         activity = getActivity();
         backButton = (Button) activity.findViewById(R.id.backaddscreen);
@@ -37,7 +37,7 @@ public class AddScreenBackTest extends ActivityInstrumentationTestCase2 {
             }
         });
 
-        // then the user should be brought back to the home screen page
+        // then they should be directed back to the home screen page
         Activity mainActivity = getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
         assertNotNull(mainActivity);
         mainActivity.finish();
