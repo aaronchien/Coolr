@@ -5,43 +5,43 @@ import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 
+import com.example.aaronchien.coolr.Activities.CalendarScreen;
 import com.example.aaronchien.coolr.Activities.MainActivity;
-import com.example.aaronchien.coolr.AddScreen;
 import com.example.aaronchien.coolr.R;
 
 /**
  * Created by jeremyliu on 12/2/15.
  */
 
-public class AddScreenTest extends ActivityInstrumentationTestCase2 {
+public class CalendarScreenTest extends ActivityInstrumentationTestCase2 {
     private Activity activity;
-    private Button addButton;
+    private Button calendarButton;
 
-    public AddScreenTest() {
+    public CalendarScreenTest() {
         super(MainActivity.class);
     }
 
     public void setUp() throws Exception {
         activity = getActivity();
-        addButton = (Button) activity.findViewById(R.id.addButton);;
+        calendarButton = (Button) activity.findViewById(R.id.calendarButton);;
     }
 
     public void testOpenNextActivity() {
         // register next activity that need to be monitored.
-        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(AddScreen.class.getName(), null, false);
+        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(CalendarScreen.class.getName(), null, false);
 
         // open current activity.
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 // click button and open next activity.
-                addButton.performClick();
+                calendarButton.performClick();
             }
         });
 
         // next activity is opened and captured.
-        Activity AddScreen = getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
-        assertNotNull(AddScreen);
-        AddScreen.finish();
+        Activity CalendarScreen = getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
+        assertNotNull(CalendarScreen);
+        CalendarScreen.finish();
     }
 }

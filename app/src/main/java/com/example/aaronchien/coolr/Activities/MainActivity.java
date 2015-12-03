@@ -1,9 +1,3 @@
-/* Test Scenarios
-    Given the calendar view screen, when I click on a date, then I should be able to see the foods that expire on that date.
-    Given the home screen with a list of food items, when I click on a food, then I should be able to see the nutritional facts for that food.
-    Given a specific food item screen, when I click on the delete button, then the food should be removed.
- */
-
 package com.example.aaronchien.coolr.Activities;
 
 import android.app.AlertDialog;
@@ -36,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     final static int ENTRY_DATE_SORT = 1;
 
     Button addButton;
-    Button deleteButton;
     Button calendarButton;
 
     RelativeLayout rl;
