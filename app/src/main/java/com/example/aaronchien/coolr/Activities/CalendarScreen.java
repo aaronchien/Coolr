@@ -1,12 +1,8 @@
 package com.example.aaronchien.coolr.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -15,8 +11,6 @@ import android.widget.Toast;
 
 import com.example.aaronchien.coolr.Managers.FoodDBHandler;
 import com.example.aaronchien.coolr.R;
-
-import java.util.ArrayList;
 
 public class CalendarScreen extends AppCompatActivity implements View.OnClickListener{
 

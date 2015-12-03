@@ -4,25 +4,16 @@ package com.example.aaronchien.coolr.Managers;
  * Created by JasmineZhao on 10/26/2015.
  */
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.Cursor;
-import android.content.Context;
-import android.content.ContentValues;
 import android.util.Log;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 import com.example.aaronchien.coolr.Food;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
-import java.util.Date;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class FoodDBHandler extends SQLiteOpenHelper {

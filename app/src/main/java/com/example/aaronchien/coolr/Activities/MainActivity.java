@@ -7,40 +7,28 @@
 package com.example.aaronchien.coolr.Activities;
 
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.example.aaronchien.coolr.Food;
-import com.example.aaronchien.coolr.Managers.FoodDBHandler;
-import com.example.aaronchien.coolr.R;
-
-import org.joda.time.DateTime;
-import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import java.util.ArrayList;
-import android.util.SparseBooleanArray;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
+import com.example.aaronchien.coolr.Managers.FoodDBHandler;
+import com.example.aaronchien.coolr.R;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
