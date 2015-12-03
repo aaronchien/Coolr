@@ -11,10 +11,6 @@ import com.example.aaronchien.coolr.Activities.MainActivity;
 import com.example.aaronchien.coolr.AddScreen;
 import com.example.aaronchien.coolr.R;
 
-/**
- * Created by jeremyliu on 12/2/15.
- */
-
 public class AddScreenTest extends ActivityInstrumentationTestCase2 {
     private Activity activity;
     private Button addButton;
